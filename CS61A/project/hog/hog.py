@@ -77,7 +77,6 @@ def simple_update(num_rolls, player_score, opponent_score, dice=six_sided):
     """
     return player_score + take_turn(num_rolls, opponent_score, dice)
 
-
 def square_update(num_rolls, player_score, opponent_score, dice=six_sided):
     """Return the total score of a player who starts their turn with
     PLAYER_SCORE and then rolls NUM_ROLLS DICE, *including* Square Swine.
@@ -88,11 +87,20 @@ def square_update(num_rolls, player_score, opponent_score, dice=six_sided):
     else:
         return score
 
-
 # BEGIN PROBLEM 4
 "*** YOUR CODE HERE ***"
-# END PROBLEM 4
+def perfect_square(x):
+    """Return True or False, judge whether x is a perfect square."""
+    from math import sqrt
+    if sqrt(x) == int(sqrt(x)):
+        return True
+    return False
 
+def next_perfect_square(x):
+    from math import sqrt
+    """Return next perfect square of x."""
+    return int(pow(sqrt(x)+1, 2))
+# END PROBLEM 4
 
 def always_roll_5(score, opponent_score):
     """A strategy of always rolling 5 dice, regardless of the player's score or
@@ -130,9 +138,15 @@ def play(strategy0, strategy1, update,
     who = 0  # Who is about to take a turn, 0 (first) or 1 (second)
     # BEGIN PROBLEM 5
     "*** YOUR CODE HERE ***"
-    # END PROBLEM 5
+    while score0 < goal and score1 < goal:
+        if who == 0:
+            score0 = update(strategy0(score0, score1), score0, score1, dice)
+            who = 1
+        else:
+            score1 = update(strategy1(score1, score0), score1, score0, dice)
+            who = 0
     return score0, score1
-
+    # END PROBLEM 5
 
 #######################
 # Phase 2: Strategies #
