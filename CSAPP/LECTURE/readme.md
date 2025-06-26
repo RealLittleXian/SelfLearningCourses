@@ -1,0 +1,1 @@
+objdump -d -j .text -j .data -j .rodata bomb > bomb.asm
